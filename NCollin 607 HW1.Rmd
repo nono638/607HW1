@@ -1,0 +1,70 @@
+---
+title: "Ncollin 607 HW1"
+output: pdf_document
+author: "Noah Collin"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## R Markdown
+
+Noah Collin
+
+NOAH.COLLIN35@login.cuny.edu
+
+This is Noah's HW1 for 607.  I'm using 538's Covid Polls data set available here: https://github.com/fivethirtyeight/covid-19-polls
+
+The specific CSV I'm using describes the approval percentage of a President's performance in responding to Covid-19.
+
+
+Below is a summary of the Polls CSV:
+```{r}
+
+#setwd("")
+polls <- read.csv("covid_approval_polls.csv")
+summary(polls)
+```
+
+
+Here are the top 5 rows of the uncleaned CSV:
+```{r polls}
+
+head(polls)
+```
+##Subset of Data
+```{r polls2}
+library(dplyr)
+```
+Here's just 4 columns of the data:
+
+```{r pressure, echo=FALSE}
+#plot(pressure)
+temp <- select(
+  .data = polls,
+  end_date,
+  approve,
+  disapprove,
+  subject
+  )
+
+head(temp)
+#Filter to just have trump or Biden the subject.
+temp <- filter(
+  .data = temp,
+  subject == "Trump" || subject == "Biden"
+)
+
+
+```
+
+##Graph (I tried a few things that I couldn't get to work.  I'd hoped to turn in something better but ran out of time.)
+```{r pollsGraph, ECHO = F}
+ggplot(data = temp) + 
+  geom_point(mapping = aes(x = end_date, y = approve)) 
+#+ 
+ # facet_grid(subject == "Trump" ~ subject == "Biden")
+
+```
